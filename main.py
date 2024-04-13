@@ -34,10 +34,13 @@ async def send_telegram_message(message):
         else:
             print("Failed to send message. Error:", response.text)
 
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 @app.post("/postback")
 async def postback_handler(request: Request):
     # await print(request.body())
     postbackData = await request.json()
     await send_telegram_message("Postback received!\n" + json.dumps(postbackData))
     return postbackData
-
