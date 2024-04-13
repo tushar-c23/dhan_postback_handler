@@ -5,10 +5,19 @@ from fastapi import Request,FastAPI
 import httpx
 from dotenv import load_dotenv
 import json
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["POST"],
+    allow_headers=["*"],
+)
 
 async def send_telegram_message(message):
     bot_token = os.getenv("TELEGRAM_BOT_TOKEN")
